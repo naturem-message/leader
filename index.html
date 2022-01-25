@@ -49,9 +49,49 @@
                     <p>팀장님들의 메시지 서비스 이용을 위한 로그인 페이지입니다.</p>
                     <p>매일 아침 8시, 전날의 매출통계를 카카오톡 메시지로 발송해 드립니다.</p>
                     <p>&nbsp;</p>
-                    <a href="javascript:kakaoLogin();" target="_blank">
-                    <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png" alt="카카오 로그인">
-                    </a>
+                    <a id="kakao-login-btn"><a/>
+                    <script type="text/javascript">
+                    Kakao.init('04b17b163c8c5855765076c465461ac1');
+                    console.log(Kakao.isInitialized());
+                      Kakao.Auth.createLoginButton({
+                        container: '#kakao-login-btn',
+                        success: function(authObj) {
+                          Kakao.API.request({
+                            url: '/v2/user/me',
+                            success: function(result) {
+                              $('#result').append(result);
+                              id = result.id
+                              connected_at = result.connected_at
+                              kakao_account = result.kakao_account
+                              $('#result').append(kakao_account);
+                              resultdiv="<h2>로그인 성공 !!"
+                              resultdiv += '<h4>id: '+id+'<h4>'
+                              resultdiv += '<h4>connected_at: '+connected_at+'<h4>'
+                              profile_nickname ="";
+                              friends = "";
+                              talk_message = "";
+                              if(typeof kakao_account != 'undefined'){
+                                  email = kakao_account.email;
+                                  gender = kakao_account.gender;
+                              }
+                              resultdiv += '<h4>email: '+email+'<h4>'
+                              resultdiv += '<h4>gender: '+gender+'<h4>'
+                              $('#result').append(resultdiv);
+
+                            },
+                            fail: function(error) {
+                              alert(
+                                'login success, but failed to request user information: ' +
+                                  JSON.stringify(error)
+                              )
+                            },
+                          })
+                        },
+                        fail: function(err) {
+                          alert('failed to login: ' + JSON.stringify(err))
+                        },
+                      })
+                    </script>
                     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
                     <script>
                         window.Kakao.init('04b17b163c8c5855765076c465461ac1');
