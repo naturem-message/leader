@@ -47,9 +47,33 @@
                     <p>팀장님들의 메시지 서비스 이용을 위한 로그인 페이지입니다.</p>
                     <p>매일 아침 8시, 전날의 매출통계를 카카오톡 메시지로 발송해 드립니다.</p>
                     <p>&nbsp;</p>
-                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=1cd6d0efedd60acc173d00337dc6aa70&redirect_uri=https://naturem-message.github.io/leader/&response_type=code" target="_blank">
+                    <a href="javascript:kakaoLogin();" target="_blank">
                     <img src="https://developers.kakao.com/tool/resource/static/img/button/login/full/ko/kakao_login_medium_narrow.png" alt="카카오 로그인">
                     </a>
+                    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+                    <script>
+                        window.Kakao.init('04b17b163c8c5855765076c465461ac1');
+
+                        function kakaoLogin() {
+                            window.Kakao.Auth.login({
+                                scope: 'profile_nickname, profile_image, friends, talk_message', //동의항목 페이지에 있는 개인정보 보호 테이블의 활성화된 ID값을 넣습니다.
+                                success: function(response) {
+                                    console.log(response) // 로그인 성공하면 받아오는 데이터
+                                    window.Kakao.API.request({ // 사용자 정보 가져오기 
+                                        url: '/v2/user/me',
+                                        success: (res) => {
+                                            const kakao_account = res.kakao_account;
+                                            console.log(kakao_account)
+                                        }
+                                    });
+                                    // window.location.href='https://naturem-message.github.io/leader/' //리다이렉트 되는 코드
+                                },
+                                fail: function(error) {
+                                    console.log(error);
+                                }
+                            });
+                        }
+                    </script>
                 </div>
             </div>
         </div>
