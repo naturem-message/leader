@@ -61,11 +61,10 @@
                     </a>
                     <p id="token-result"></p>
                     <script type="text/javascript">
-Kakao.init('04b17b163c8c5855765076c465461ac1')
-console.log(Kakao.isInitialized());
                       function loginWithKakao() {
                         Kakao.Auth.authorize({
                           redirectUri: 'https://naturem-message.github.io/leader/'
+                          scope: 'friends, talk_message'
                         })
                       }
                       // 아래는 데모를 위한 UI 코드입니다.
