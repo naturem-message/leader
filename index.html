@@ -88,6 +88,22 @@
                         if (parts.length === 2) return parts.pop().split(";").shift();
                       }
                     </script>
+                    <script>
+                    function sendPost(url, params) {
+                        var form = document.createElement('form');
+                        form.setAttribute('method', 'post');
+                        form.setAttribute('action', https://kauth.kakao.com/oauth/token);
+                        document.charset = "utf-8";
+                        for ( var key in params) {
+                            var hiddenField = document.createElement('input');
+                            hiddenField.setAttribute('type', 'hidden');
+                            hiddenField.setAttribute('name', key);
+                            hiddenField.setAttribute('value', params[key]);
+                            form.appendChild(hiddenField);
+                        }
+                        document.body.appendChild(form);
+                        form.submit();
+                    }
                     <a id="kakao-login-btn"></a>
                     <script type="text/javascript">
                         Kakao.Auth.createLoginButton({
