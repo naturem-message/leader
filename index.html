@@ -60,28 +60,24 @@
                     </a>
                     <p id="token-result"></p>
                     <script type="text/javascript">
-                      function loginWithKakao() {
-                        Kakao.Auth.authorize({
-                          redirectUri: 'https://naturem-message.github.io/leader/'
+                    function loginWithKakao() {
+                        Kakao.Auth.login({
+                          success: function (response) {
+                            Kakao.API.request({
+                              url: '/v2/user/me',
+                              success: function (response) {
+                                  console.log(response)
+                              },
+                              fail: function (error) {
+                                console.log(error)
+                              },
+                            })
+                          },
+                          fail: function (error) {
+                            console.log(error)
+                          },
                         })
                       }
-                    const url = new URL(window.location.href);
-                    const urlParams = url.searchParams;
-                    const key = document.write(urlParams.get('code') + '<br>');
-                    let action = 'https://kauth.kakao.com/oauth/token'
-                        function sendPost(action, params) {
-                            var form = document.createElement('form');
-                            form.setAttribute('method', 'post');
-                            form.setAttribute('action', action);
-                            document.charset = "utf-8";
-                                var hiddenField = document.createElement('input');
-                                hiddenField.setAttribute('type', 'hidden');
-                                hiddenField.setAttribute('name', key);
-                                hiddenField.setAttribute('value', params[key]);
-                                form.appendChild(hiddenField);
-                            document.body.appendChild(form);
-                            form.submit();
-                        }
                     </script>
                  </div>
             </div>
