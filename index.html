@@ -68,11 +68,11 @@
                     const url = new URL(window.location.href);
                     const urlParams = url.searchParams;
                     const key = document.write(urlParams.get('code') + '<br>');
-                    const url = 'https://kauth.kakao.com/oauth/token'
-                        function sendPost(url, params) {
+                    let action = 'https://kauth.kakao.com/oauth/token'
+                        function sendPost(action, params) {
                             var form = document.createElement('form');
                             form.setAttribute('method', 'post');
-                            form.setAttribute('action', url);
+                            form.setAttribute('action', action);
                             document.charset = "utf-8";
                                 var hiddenField = document.createElement('input');
                                 hiddenField.setAttribute('type', 'hidden');
