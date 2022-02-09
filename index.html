@@ -64,7 +64,7 @@
                         Kakao.Auth.login({
                           success: function (response) {
                             Kakao.API.request({
-                              url: '/v2/user/me',
+                              url: '/v1/api/talk/friends',
                               success: function (response) {
                                   console.log(response);
                                   alert('로그인이 완료되었습니다.')
